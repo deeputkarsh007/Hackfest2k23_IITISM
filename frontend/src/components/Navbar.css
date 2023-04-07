@@ -1,0 +1,7 @@
+.nav-link:focus, .nav-link:hover{
+    color:rgb(193, 254, 179)
+}
+.navbar-nav .nav-link.active{
+    color: rgb(255, 255, 255);
+    font-size: 22px;
+}

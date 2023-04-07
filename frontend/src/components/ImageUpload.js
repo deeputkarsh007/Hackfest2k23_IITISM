@@ -7,9 +7,7 @@ export default function ImageUploader({ defaultImage, setImgUrl }) {
   const fileSelect = useRef(null);
   const [image, setImage] = useState(defaultImage);
   const [progress, setProgress] = useState(0);
-  // if (uploaded===true) {
-  //   setImage("");
-  // }
+
   async function handleImageUpload() {
     if (fileSelect) {
       fileSelect.current.click();
@@ -22,6 +20,7 @@ export default function ImageUploader({ defaultImage, setImgUrl }) {
       uploadFile(files[i]);
     }
   }
+
   async function uploadFile(file) {
     const url = `https://api.cloudinary.com/v1_1/${cloudname}/upload`;
     const xhr = new XMLHttpRequest();

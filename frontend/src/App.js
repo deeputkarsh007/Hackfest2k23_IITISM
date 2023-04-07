@@ -6,7 +6,6 @@ import Home from "./pages/Home";
 import { makeStyles } from "@material-ui/core";
 import Marketplace from "./pages/Marketplace";
 import UploadForRent from "./pages/UploadForRent";
-// import Uploadform from "./components/UploadForm";
 function App() {
   const useStyles = makeStyles((theme) => ({
     body: {

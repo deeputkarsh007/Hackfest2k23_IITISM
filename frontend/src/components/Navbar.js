@@ -78,7 +78,7 @@ const Navbar = () => {
                     href="#"
                     style={ItemCss}
                     onClick={() => {
-                      navigate("/uploadforrent");
+                      navigate("/");
                     }}
                   >
                     Sell an Item
@@ -111,10 +111,9 @@ const Navbar = () => {
                 <li class="nav-item">
                   <a
                     class="nav-link"
-                    // href="#"
+                    href="#"
                     style={ItemCss}
                     onClick={() => {
-                      console.log("hi");
                       navigate("/");
                     }}
                   >

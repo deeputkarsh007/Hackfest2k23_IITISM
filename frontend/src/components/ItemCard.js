@@ -1,34 +1,41 @@
 import React from "react";
 import { Card, CardContent, Typography } from "@material-ui/core";
-import '/node_modules/bootstrap/dist/css/bootstrap.min.css';
-import './ItemCard.css'
+import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "./ItemCard.css";
 
-const ItemCard=({value,imgUrl,item, price, startDate, endDate})=>{
-  return(
-          <div class='col-12 col-md-6 col-lg-4'>
-            <div class='card ' >
-              
-              <img src={imgUrl} alt="" class="card-img-top"/>
-          
-              
+const ItemCard = ({ value, imgUrl, item, price, startDate, endDate }) => {
+  return (
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card ">
+        <img src={imgUrl} alt="" class="card-img-top" />
 
-              <div class='class-body'>
-                <h3 class='card-title'>{item}</h3>
-                <p class='card-text'>
-                  Price:{price}<br/>
-                  Date Range:{startDate} - {endDate}
-                </p>
-              </div>
-            </div>
-            </div>
-          
+        {/* <template>
+  <div>
+    <b-form-rating v-model="value" readonly></b-form-rating>
+    <p class="mt-2">Value: {{ value }}</p>
+  </div>
+</template> */}
+        {/* <script>
+  export default {
+    data() {
+      return {
+        value: 2.567
+      }
+    }
+  }
+</script> */}
+        <div class="class-body">
+          <h3 class="card-title">{item}</h3>
+          <p class="card-text">
+            Price:{price}
+            <br />
+            Date Range:{startDate} - {endDate}
+          </p>
+        </div>
+      </div>
+    </div>
   );
-}
-
-
-
-
-
+};
 
 // const ItemCard = ({ item, price, startDate, endDate }) => {
 //   return (

@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const User = require("./models/User");
 const dotenv = require("dotenv");
+const Post = require("./models/Post");
 dotenv.config();
 const DATABASE_URL = process.env.DB_URL;
 const app = express();
@@ -55,6 +56,52 @@ app.post("/register", async (req, res) => {
     });
     await newuser.save();
     return res.status(200).json({ message: "Registration sucessful" });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
+
+app.post("/uploadtoDB", async (req, res) => {
+  try {
+    const {
+      amount,
+      description,
+      endingDate,
+      endingTime,
+      img_url,
+      postedBy,
+      startingDate,
+      startingTime,
+      title,
+      type,
+    } = req.body;
+    const newpost = new Post({
+      amount,
+      description,
+      endingDate,
+      endingTime,
+      img_url,
+      postedBy,
+      startingDate,
+      startingTime,
+      title,
+      type,
+    });
+    const user = await User.findById(postedBy);
+    const posts = user.posts;
+    const new_posts = [...posts, newpost];
+    await User.findByIdAndUpdate(postedBy, { posts: new_posts });
+    await newpost.save();
+
+    return res.status(200).json({ message: "Post Saved" });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
+app.get("/getAllPosts", async (req, res) => {
+  try {
+    const posts = await Post.find();
+    res.status(200).json({ posts: posts });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

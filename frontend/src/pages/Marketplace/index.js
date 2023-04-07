@@ -3,7 +3,6 @@ import ItemCard from "../../components/ItemCard";
 import Navbar from "../../components/Navbar";
 import "./style.css";
 import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate } from "react-router";
 
 const Marketplace = () => {
   const items = [

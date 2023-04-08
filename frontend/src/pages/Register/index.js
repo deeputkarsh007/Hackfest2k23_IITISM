@@ -1,5 +1,10 @@
 import "./styles.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import React, { useEffect, useState } from "react";
+// import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// import React, { useEffect, useState } from "react";
 import {
   makeStyles,
   ThemeProvider,
@@ -25,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     margin: theme.spacing(1),
     width: "100%",
+    margin: "15px",
   },
   button: {
     margin: theme.spacing(2, 0),
@@ -37,12 +43,13 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     "&:hover": {
       textDecoration: "underline",
+      color: "green",
     },
   },
 }));
-
 function Login() {
   const classes = useStyles();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [upiId, setUpiId] = useState("");
@@ -52,6 +59,7 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const res = await axios.post(`${BACKEND_BASE_URL}/register`, {
+      name: name,
       email: email,
       password: password,
       upiId: upiId,
@@ -61,7 +69,7 @@ function Login() {
       navigate("/login");
     }
     console.log(
-      `Email: ${email}, Password: ${password}, UPI ID: ${upiId}, Phone Number: ${phoneNumber}`
+      `Name: ${name}, Email: ${email}, Password: ${password}, UPI ID: ${upiId}, Phone Number: ${phoneNumber}`
     );
   };
   useEffect(() => {
@@ -74,9 +82,18 @@ function Login() {
       <div id="Register">
         <Container maxWidth="xs" id="RegisterContainer">
           <Typography variant="h4" align="center" gutterBottom>
-            Sign In
+            Sign Up
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit}>
+            <TextField
+              label="Name"
+              variant="outlined"
+              className={classes.input}
+              type="text"
+              value={name}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
             <TextField
               label="Email"
               variant="outlined"
@@ -110,7 +127,9 @@ function Login() {
               className={classes.input}
               type="tel"
               value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              onChange={(e) => {
+                setPhoneNumber(e.target.value);
+              }}
               required
             />
             <Button
@@ -118,9 +137,27 @@ function Login() {
               color="primary"
               className={classes.button}
               type="submit"
+              onClick={() => {
+                console.log(phoneNumber);
+
+                var phoneno =
+                  /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+                if (phoneNumber.match(phoneno)) {
+                  toast.success("Successfully Signed Up !", {
+                    position: toast.POSITION.TOP_CENTER,
+                  });
+                  return true;
+                } else {
+                  toast.error("Error Notification ! Invalid Phone number", {
+                    position: toast.POSITION.TOP_CENTER,
+                  });
+                  return false;
+                }
+              }}
             >
-              Sign In
+              Sign Up
             </Button>
+            <ToastContainer />
           </form>
           <Link to="/login" className={classes.link}>
             Already have an Account? Login

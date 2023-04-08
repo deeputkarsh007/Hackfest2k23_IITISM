@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core";
 import Marketplace from "./pages/Marketplace";
 import UploadForRent from "./pages/UploadForRent";
 import SellRequests from "./pages/SellRequests";
+import GetRequests from "./pages/GetRequests";
 // import Uploadform from "./components/UploadForm";
 function App() {
   const useStyles = makeStyles((theme) => ({
@@ -36,6 +37,7 @@ function App() {
         <Route path="/marketplace" element={<Marketplace />} />
         <Route path="/uploadforrent" element={<UploadForRent />} />
         <Route path="/sellrequests" element={<SellRequests />} />
+        <Route path="/getrequests" element={<GetRequests />} />
       </Routes>
     </div>
   );

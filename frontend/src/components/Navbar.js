@@ -36,13 +36,16 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav class="navbar navbar-expand-lg " style={backGround}>
-        <div class="container-fluid">
-          <a class="navbar-brand " href="#">
-            <p style={AppCss}>MY APP</p>
+      <nav className="navbar navbar-expand-lg " style={backGround}>
+        <div className="container-fluid">
+          <a className="navbar-brand " href="#">
+            <p>
+              <span class="college">College</span>
+              <span class="trader">-trader</span>
+            </p>
           </a>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
@@ -51,17 +54,17 @@ const Navbar = () => {
             aria-label="Toggle navigation"
             style={ButtonCss}
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <div style={{ marginLeft: "auto" }}>
               <ul
-                class="navbar-nav me-auto mb-2 mb-lg-0"
+                className="navbar-nav me-auto mb-2 mb-lg-0"
                 style={{ fontSize: "25px", textAlign: "center" }}
               >
-                <li class="nav-item ">
+                <li className="nav-item ">
                   <a
-                    class="nav-link  "
+                    className="nav-link  "
                     aria-current="page"
                     href="#"
                     style={ItemCss}
@@ -72,9 +75,9 @@ const Navbar = () => {
                     Home
                   </a>
                 </li>
-                <li class="nav-item">
+                <li className="nav-item">
                   <a
-                    class="nav-link"
+                    className="nav-link"
                     href="#"
                     style={ItemCss}
                     onClick={() => {
@@ -84,9 +87,9 @@ const Navbar = () => {
                     Sell an Item
                   </a>
                 </li>
-                <li class="nav-item">
+                <li className="nav-item">
                   <a
-                    class="nav-link "
+                    className="nav-link "
                     href="#"
                     style={ItemCss}
                     onClick={() => {
@@ -96,9 +99,9 @@ const Navbar = () => {
                     Marketplace
                   </a>
                 </li>
-                <li class="nav-item">
+                <li className="nav-item">
                   <a
-                    class="nav-link"
+                    className="nav-link"
                     href="#"
                     style={ItemCss}
                     onClick={() => {
@@ -108,9 +111,9 @@ const Navbar = () => {
                     Get Requests
                   </a>
                 </li>
-                <li class="nav-item">
+                <li className="nav-item">
                   <a
-                    class="nav-link"
+                    className="nav-link"
                     href="#"
                     style={ItemCss}
                     onClick={() => {

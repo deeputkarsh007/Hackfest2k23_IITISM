@@ -10,12 +10,13 @@ const {
   handlerent,
   handlebuy,
   getreqby,
+  updateuserinfo,
 } = require("../controllers/posts.js");
 
 const postRouter = express.Router();
 
 postRouter.post("/uploadtoDB", uploadToDb);
-postRouter.post("/getAllPosts", getAllPosts);
+postRouter.get("/getAllPosts", getAllPosts);
 
 postRouter.post("/userPosts", userPosts);
 
@@ -28,5 +29,6 @@ postRouter.post("/handledel", handledel);
 postRouter.post("/handlerent", handlerent);
 postRouter.post("/handlebuy", handlebuy);
 postRouter.post("/getreqby", getreqby);
+postRouter.post("/updateuserinfo", updateuserinfo);
 
 module.exports = postRouter;

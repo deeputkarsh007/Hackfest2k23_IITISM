@@ -1,14 +1,15 @@
-
+/* 
 .new-form {
-    background-color:rgb(157, 245, 157);
-    padding: 1rem;
-    margin: 2rem auto;
-    width: 50rem;
-    max-width: 95%;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
-  }
+  background-color: rgb(242, 255, 242);
+  padding: 1rem;
+  margin: 2% auto;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Ubuntu, sans-serif;
+  width: 80%;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 
 .new-form__info {
     display: flex;
@@ -62,4 +63,99 @@
   .new-form__actions button.alternative:hover,
   .new-form__actions button.alternative:active {
     background-color: #ddb3f8;
-  }
+  } */
+
+#FormMain {
+  width: 95%;
+  /* margin: auto; */
+  position: relative;
+  top: 19%;
+  /* right: 2%; */
+  margin: 0 auto 0 auto;
+  /* border: 2px solid black;
+     */
+}
+.new-form {
+  background-color: rgb(242, 255, 242);
+  padding: 1rem;
+  margin: 2% auto;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Ubuntu, sans-serif;
+  width: 80%;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.new-form__info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.new-form__control label {
+  font-weight: normal;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.new-form__control input {
+  font: inherit;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #918c8c;
+  width: 20rem;
+  max-width: 100%;
+}
+
+.new-form__control input::placeholder {
+  color: #45f13f;
+  font-size: 15px;
+}
+
+.new-form__actions {
+  text-align: right;
+}
+.new-form__actions button {
+  font: bolder;
+  /* font-size: 20px; */
+  font-weight: bold;
+  cursor: pointer;
+  padding: 1rem 2rem;
+  border: 1px solid #45f13f;
+  background-color: #45f13f;
+  color: white;
+  border-radius: 12px;
+  margin-right: 1rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.new-form__actions button:hover,
+.new-form__actions button:active {
+  background-color: #3fd239;
+  border-color: #45f13f;
+  font-weight: bolder;
+  color: whitesmoke;
+}
+
+.new-form__actions button.alternative {
+  color: #45f13f;
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.new-form__actions button.alternative:hover,
+.new-form__actions button.alternative:active {
+  background-color: #ddb3f8;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: rgba(9, 111, 12, 0);
+  opacity: 1;
+
+  width: 20px;
+  height: 20px;
+  border-width: thin;
+}

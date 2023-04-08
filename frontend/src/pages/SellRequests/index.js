@@ -1,20 +1,58 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ItemCard from "../../components/ItemCard";
+import { useNavigate } from "react-router";
+import Navbar from "../../components/Navbar";
+import { Backdrop } from "@material-ui/core";
 
-const GetRequests = () => {
+const SellRequests = () => {
+  const navigate = useNavigate();
   const BACKEND_URL = "http://localhost:8000/userPosts";
-  const userid = JSON.parse(localStorage["college_trader_data"])._id;
+  useEffect(() => {
+    if (!localStorage["college_trader_data"]) {
+      navigate("/login");
+    }
+    // const fun = async () => {
+    //   setPosts((await axios.get(BACKEND_URL)).data.posts);
+    // };
+    // fun();
+  }, []);
+  // const [userid, setUserid] = useState("");
+  // if (localStorage["college_trader_data"]) {
+  //   setUserid(JSON.parse(localStorage["college_trader_data"])._id);
+  // }
+  // const [posts, setPosts] = useState([]);
+  // useEffect(() => {
+  //   const fun = async () => {
+  //     setPosts(await axios.get(BACKEND_URL, { id: userid }));
+  //   };
+  //   fun();
+  // }, []);
+  // console.log(posts);
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     const fun = async () => {
-      setPosts(await axios.post(BACKEND_URL, { id: userid }));
+      console.log(JSON.parse(localStorage["college_trader_data"])._id);
+      setPosts(
+        await axios.post(BACKEND_URL, {
+          id: JSON.parse(localStorage["college_trader_data"])
+            ? JSON.parse(localStorage["college_trader_data"])._id
+            : "",
+        })
+      );
+      console.log(
+        await axios.post(BACKEND_URL, {
+          id: JSON.parse(localStorage["college_trader_data"])
+            ? JSON.parse(localStorage["college_trader_data"])._id
+            : "",
+        })
+      );
     };
     fun();
   }, []);
-  console.log(posts);
   return (
     <div>
+      <Navbar />
       {posts?.data?.posts.map((item, i) => (
         <ItemCard
           key={i}
@@ -26,10 +64,11 @@ const GetRequests = () => {
           endDate={item.endingDate}
           type={item.type}
           postedBy={item.postedBy}
+          _id={item._id}
         />
       ))}
     </div>
   );
 };
 
-export default GetRequests;
+export default SellRequests;

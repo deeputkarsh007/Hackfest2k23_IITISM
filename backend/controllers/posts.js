@@ -139,3 +139,22 @@ exports.getreqby = async (req, res) => {
   const resp = await Post.find({ requestedBy: id });
   res.status(200).json({ resp: resp });
 };
+exports.updateuserinfo = async (req, res) => {
+  try {
+    console.log("ho");
+    const { email, name, phone, upiId, id } = req.body;
+    const upduser = await User.findByIdAndUpdate(id, {
+      email,
+      name,
+      phone,
+      upiId,
+    });
+    console.log(upduser);
+
+    return res
+      .status(200)
+      .json({ message: "Successfully updated", user: upduser });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};

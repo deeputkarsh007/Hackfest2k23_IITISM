@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import axios from "axios";
+
 const cloudname = "dmhsbpc29";
 const preset = "hackathon_preset";
 
@@ -50,38 +51,71 @@ export default function ImageUploader({ defaultImage, setImgUrl, uploaded }) {
     // console.log({resp});
     // const ress = await axios.post()
   }
+  // const ButtonStyle = {
+  //   font: "bolder",
+  //   cursor: "pointer",
+  //   padding: "0.5rem 1.5rem",
+  //   border: "1px solid rgb(49, 208, 44)",
+  //   backgroundColor: "rgb(65, 209, 60)",
+  //   color: "white",
+  //   borderRadius: "12px",
+  //   marginRight: "1rem",
+  //   boxShadow:
+  //     "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+  // };
   // console.log(image)
+
+  const ButtonStyle = {
+    font: "bolder",
+    cursor: "pointer",
+    padding: "0.5rem 1.5rem",
+    border: "1px solid rgb(49, 208, 44)",
+    backgroundColor: "rgb(65, 209, 60)",
+    color: "white",
+    borderRadius: "12px",
+    marginRight: "1rem",
+    boxShadow:
+      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+  };
+
   return (
     <>
-      <div className="" style={{ height: 400, width: 600 }}>
-        <form className="">
-          {progress === 0 || progress === 100 ? (
-            <div className="">
-              <button className="" onClick={handleImageUpload} type="button">
-                Browse
-              </button>
-            </div>
-          ) : (
-            <span className="">{progress}%</span>
-          )}
+      <div className="" style={{ height: "auto", width: "100%" }}>
+        <div className="" style={{ height: "auto", width: "100%" }}>
+          <form className="">
+            {progress === 0 || progress === 100 ? (
+              <div className="">
+                <button
+                  className=""
+                  onClick={handleImageUpload}
+                  type="button"
+                  style={ButtonStyle}
+                >
+                  Browse
+                </button>
+              </div>
+            ) : (
+              <span className="">{progress}%</span>
+            )}
 
-          <input
-            ref={fileSelect}
-            type="file"
-            accept="image/*"
-            style={{ display: "none" }}
-            onChange={(e) => handleFiles(e.target.files)}
+            <input
+              ref={fileSelect}
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={(e) => handleFiles(e.target.files)}
+            />
+          </form>
+        </div>
+        {/* {console.log(uploaded) } */}
+        {image && !uploaded && (
+          <img
+            className=""
+            src={image.replace("upload/", "upload/w_600/")}
+            style={{ height: "400", width: "600" }}
           />
-        </form>
+        )}
       </div>
-      {/* {console.log(uploaded) } */}
-      {image && !uploaded && (
-        <img
-          className=""
-          src={image.replace("upload/", "upload/w_600/")}
-          style={{ height: "400", width: "600" }}
-        />
-      )}
     </>
   );
 }

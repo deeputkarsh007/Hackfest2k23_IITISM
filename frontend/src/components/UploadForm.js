@@ -3,6 +3,9 @@ import "./UploadForm.css";
 import ImageUploader from "./ImageUpload";
 import { upload } from "@testing-library/user-event/dist/upload";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router";
 const Uploadform = () => {
   const BACKEND_URL = "http://localhost:8000/uploadtoDB";
   const [enteredTitle, setEnteredTitle] = useState("");
@@ -14,6 +17,15 @@ const Uploadform = () => {
   const [enteredEndingTime, setEnteredEndingTime] = useState("");
   const [imgUrl, setImgUrl] = useState("");
   const [uploaded, setUploaded] = useState(false);
+  const [enteredLabel, setEnteredLabel] = useState("Rate of the Product");
+  const [enteredOption, setEnteredOption] = useState("Rent");
+  const [disabled, setDisabled] = useState(false);
+  useEffect(() => {
+    setEnteredStartingDate("");
+    setEnteredStartingTime("");
+    setEnteredEndingDate("");
+    setEnteredEndingTime("");
+  }, [enteredOption]);
   const titleChangeHandler = (event) => {
     setEnteredTitle(event.target.value);
   };
@@ -36,9 +48,9 @@ const Uploadform = () => {
     setEnteredEndingTime(event.target.value);
   };
 
-  const [enteredLabel, setEnteredLabel] = useState("Rate of the Product");
-  const [enteredOption, setEnteredOption] = useState("Rent");
-  const [disabled, setDisabled] = useState(false);
+  // const [enteredLabel, setEnteredLabel] = useState("Rate of the Product");
+  // const [enteredOption, setEnteredOption] = useState("Rent");
+  // const [disabled, setDisabled] = useState(false);
   const dropDownChangeHandler = (event) => {
     const val = event.target.value.toString();
     if (val === "Rent") {
@@ -51,10 +63,10 @@ const Uploadform = () => {
       setDisabled(!disabled);
     }
   };
-
+  const navigate = useNavigate();
   const submitHandler = async (event) => {
     event.preventDefault();
-
+    console.log("hio");
     const newItemDetail = {
       type: enteredOption,
       title: enteredTitle,
@@ -69,14 +81,17 @@ const Uploadform = () => {
     };
     console.log(newItemDetail);
     const res = await axios.post(BACKEND_URL, newItemDetail);
-    function refreshPage() {
-      window.location.reload(false);
-    }
+    // function refreshPage() {
+    //   window.location.reload(false);
+    // }
     if (res.status == "200") {
-      alert("Successfully Added---!");
-      refreshPage();
+      toast.success("Adding Your Product !", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     } else {
-      alert("Oops Something Broke---!");
+      toast.failure("Something went wrong", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
     setEnteredTitle("");
     setEnteredDescription("");
@@ -86,102 +101,121 @@ const Uploadform = () => {
     setEnteredEndingDate("");
     setEnteredEndingTime("");
     setImgUrl("");
+    setTimeout(() => {
+      navigate("/marketplace");
+    }, 2000);
   };
-
+  const showToastMessage = () => {
+    toast.success("Success Notification !", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  }; //showToastMessage
   return (
-    <form className="new-form" onSubmit={submitHandler}>
-      <div className="new-form__info">
-        <div className="new-form__control">
-          <select value={enteredOption} onChange={dropDownChangeHandler}>
-            <option value="Sell">Sell</option>
-            <option value="Rent">Rent</option>
-          </select>
-        </div>
-        <div className="new-form__control">
-          <label>Title</label>
-          <input
-            type="text"
-            placeholder="Name of the item"
-            value={enteredTitle}
-            onChange={titleChangeHandler}
-          />
-        </div>
-        <div className="new-form__control">
-          <label>Description</label>
-          <input
-            type="text"
-            placeholder="Description of the item"
-            value={enteredDescription}
-            onChange={descriptionChangeHandler}
-          />
-        </div>
-        <div className="new-form__control">
-          <label>{enteredLabel}</label>
-          <input
-            type="text"
-            placeholder="Enter your amount"
-            value={enteredAmount}
-            onChange={amountChangeHandler}
-          />
-        </div>
-        <div className="new-form__control">
-          <label>Starting Date</label>
-          <input
-            disabled={disabled}
-            type="date"
-            min="2019-01-01"
-            max="2025-12-31"
-            value={enteredStartingDate}
-            onChange={startingDateChangeHandler}
-          />
-        </div>
+    <div id="FormMain">
+      <form className="new-form" onSubmit={submitHandler}>
+        <div className="new-form__info">
+          <div className="new-form__control" style={{ width: "100%" }}>
+            <select
+              value={enteredOption}
+              onChange={dropDownChangeHandler}
+              style={{
+                width: "141px",
+                height: "28px",
+                padding: "0px 2px",
+                margin: "0px 10px",
+              }}
+            >
+              <option value="Sell">Sell</option>
+              <option value="Rent">Rent</option>
+            </select>
+          </div>
+          <div className="new-form__control">
+            <label>Title</label>
+            <input
+              type="text"
+              placeholder="Name of the item"
+              value={enteredTitle}
+              onChange={titleChangeHandler}
+            />
+          </div>
+          <div className="new-form__control">
+            <label>Description</label>
+            <input
+              type="text"
+              placeholder="Description of the item"
+              value={enteredDescription}
+              onChange={descriptionChangeHandler}
+            />
+          </div>
+          <div className="new-form__control">
+            <label>{enteredLabel}</label>
+            <input
+              type="text"
+              placeholder="Enter your amount"
+              value={enteredAmount}
+              onChange={amountChangeHandler}
+            />
+          </div>
+          <div className="new-form__control">
+            <label>Starting Date</label>
+            <input
+              disabled={disabled}
+              type="date"
+              min="2019-01-01"
+              max="2025-12-31"
+              value={enteredStartingDate}
+              onChange={startingDateChangeHandler}
+            />
+          </div>
 
-        <div className="new-form__control">
-          <label>Starting Time</label>
-          <input
-            disabled={disabled}
-            type="time"
-            id="time"
-            value={enteredStaringTime}
-            onChange={startingTimeChangeHandler}
-          />
+          <div className="new-form__control">
+            <label>Starting Time</label>
+            <input
+              disabled={disabled}
+              type="time"
+              id="time"
+              value={enteredStaringTime}
+              onChange={startingTimeChangeHandler}
+            />
+          </div>
+          <div className="new-form__control">
+            <label>Ending Date</label>
+            <input
+              disabled={disabled}
+              type="date"
+              min="2019-01-01"
+              max="2022-12-31"
+              value={enteredEndingDate}
+              onChange={endingDateChangeHandler}
+            />
+          </div>
+          <div className="new-form__control">
+            <label>Ending Time</label>
+            <input
+              disabled={disabled}
+              type="time"
+              id="time"
+              value={enteredEndingTime}
+              onChange={endingTimeChangeHandler}
+            />
+          </div>
+          <ImageUploader setImgUrl={setImgUrl} uploaded={uploaded} />
         </div>
-        <div className="new-form__control">
-          <label>Ending Date</label>
-          <input
-            disabled={disabled}
-            type="date"
-            min="2019-01-01"
-            max="2022-12-31"
-            value={enteredEndingDate}
-            onChange={endingDateChangeHandler}
-          />
+        <div className="new-form__actions">
+          <button
+            type="submit"
+            onClick={(e) => {
+              console.log(uploaded);
+              setUploaded(true);
+              submitHandler(e);
+            }}
+          >
+            Add the Product
+          </button>
+          <ToastContainer />
         </div>
-        <div className="new-form__control">
-          <label>Ending Time</label>
-          <input
-            disabled={disabled}
-            type="time"
-            id="time"
-            value={enteredEndingTime}
-            onChange={endingTimeChangeHandler}
-          />
-        </div>
-        <ImageUploader setImgUrl={setImgUrl} uploaded={uploaded} />
-      </div>
-      <div className="new-form__actions">
-        <button
-          type="submit"
-          onClick={(e) => {
-            console.log(uploaded);
-            setUploaded(true);
-            submitHandler(e);
-          }}
-        >
-          Add the Product
-        </button>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };
 export default Uploadform;

@@ -19,7 +19,7 @@ const ItemCard = ({
   const [request, setRequest] = useState("");
   useEffect(() => {
     const fun = async () => {
-      console.log((await axios.post(BACKEND_URL, { id: _id })).data.user.name);
+      console.log((await axios.post(BACKEND_URL, { id: _id })).data);
       setRequest((await axios.post(BACKEND_URL, { id: _id })).data.user.name);
     };
     fun();
@@ -31,9 +31,6 @@ const ItemCard = ({
     };
     fun();
   }, [typeselected]);
-  useEffect(() => {
-    console.log(request);
-  }, [request]);
   const ACCEPT_BACKEND_URL = "http://localhost:8000/handleaccept";
   const handleAccept = async (e) => {
     const resp = await axios.post(ACCEPT_BACKEND_URL, { postid: _id });
@@ -47,9 +44,18 @@ const ItemCard = ({
   const DBACKEND_URL = "http://localhost:8000/handledel";
   const handleDelete = async (e) => {
     e.preventDefault();
-    console.log("hiii");
     const resp = await axios.post(DBACKEND_URL, { postid: _id });
-    console.log(resp);
+    alert(resp.data.message);
+  };
+  const RENT_BACKEND_URL = "http://localhost:8000/handlerent";
+  const handleRent = async (e) => {
+    e.preventDefault();
+    // console.log("hi");
+    const resp = await axios.post(RENT_BACKEND_URL, {
+      postid: _id,
+      requestedBy: JSON.parse(localStorage["college_trader_data"])._id,
+    });
+    alert(resp.data.message);
   };
   return (
     <div className="col-12 col-md-6 col-lg-4">
@@ -66,33 +72,38 @@ const ItemCard = ({
         </div>
         {JSON.parse(localStorage["college_trader_data"])._id === postedBy ? (
           request ? (
-            <div>
-              <p>
-                Request from {request} Contact no: {phone}
-              </p>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleAccept(e);
-                }}
-              >
-                Accept
-              </button>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleDecline(e);
-                }}
-              >
-                Decline
-              </button>
-            </div>
+            type === "Requested" ? (
+              <div>
+                <p>
+                  Request from {request} Contact no: {phone}
+                </p>
+                <div>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleAccept(e);
+                    }}
+                  >
+                    Accept
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleDecline(e);
+                    }}
+                  >
+                    Decline
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div>{type}</div>
+            )
           ) : (
             <div>
               <p>No requests Yet</p>
               <button
                 onClick={(e) => {
-                  // e.preventDefault();
                   handleDelete(e);
                 }}
               >
@@ -103,11 +114,23 @@ const ItemCard = ({
         ) : (
           <div>
             {request ? (
-              <p>Already Requested</p>
+              <p>Already {type}</p>
             ) : type === "Rent" ? (
-              <button>Rent</button>
+              <button
+                onClick={(e) => {
+                  handleRent(e);
+                }}
+              >
+                Rent
+              </button>
             ) : (
-              <button>Buy</button>
+              <button
+                onClick={(e) => {
+                  handleRent(e);
+                }}
+              >
+                Buy
+              </button>
             )}
           </div>
         )}

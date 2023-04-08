@@ -19,6 +19,8 @@ const useStyles = makeStyles((theme) => ({
   input: {
     margin: theme.spacing(1),
     width: "100%",
+    margin:'15px'
+    
   },
   button: {
     margin: theme.spacing(2, 0),
@@ -35,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     "&:hover": {
       textDecoration: "underline",
+      color:'green'
     },
   },
 }));
@@ -51,8 +54,11 @@ function Login() {
       email: email,
       password: password,
     });
+    alert(res.data.message);
     if (res.status == "200") {
-      navigate("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     }
 
     if (res.data.message === "login successful") {
@@ -61,7 +67,7 @@ function Login() {
         JSON.stringify(res.data.user)
       );
     } else {
-      alert("gadbad hai");
+      alert("Something went wrong");
     }
     // console.log(`Email: ${email}, Password: ${password}`);
   };
@@ -74,6 +80,7 @@ function Login() {
     }
   }, []);
   return (
+    
     <div id="SignIn">
       <Container maxWidth="xs" id="SignInContainer">
         <Typography variant="h4" align="center" gutterBottom>
@@ -88,6 +95,7 @@ function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+           
           />
           <TextField
             label="Password"

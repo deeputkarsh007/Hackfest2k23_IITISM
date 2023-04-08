@@ -1,3 +1,12 @@
+// import "./style.css";
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+// import React, { useEffect, useState } from "react";
+// import ItemCard from "../../components/ItemCard";
+// import Navbar from "../../components/Navbar";
+// import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
+// import { useNavigate } from "react-router";
+// import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ItemCard from "../../components/ItemCard";
 import Navbar from "../../components/Navbar";
@@ -19,9 +28,9 @@ const Marketplace = () => {
     };
     fun();
   }, []);
-  useEffect(() => {
-    console.log(posts);
-  }, [posts]);
+  // useEffect(() => {
+  //   console.log(posts);
+  // }, [posts]);
   const [searchTerm, setSearchTerm] = useState("");
   const [cardList, setCardList] = useState([]);
   const [typeselected, setTypeSelected] = useState("Rent");
@@ -49,8 +58,8 @@ const Marketplace = () => {
         style={{ backgroundColor: "rgb(237, 255, 233)", margin: "25px 0px" }}
       >
         {" "}
-        <div class="container-fluid py-2" id="MarketCardDeck">
-          <div class="row g-5 d-flex flex-row flex-nowrap">
+        <div className="container-fluid py-2" id="MarketCardDeck">
+          <div className="row g-5 d-flex flex-row flex-nowrap">
             {posts &&
               posts
                 .filter((item) => {

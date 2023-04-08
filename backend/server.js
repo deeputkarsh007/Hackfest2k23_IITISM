@@ -113,12 +113,19 @@ app.get("/getAllPosts", async (req, res) => {
 });
 app.post("/userPosts", async (req, res) => {
   const { id } = req.body;
-  console.log(id);
   const userposts = await Post.find({ postedBy: id });
   return res.status(200).json({ posts: userposts });
 });
-app.get("/getrequester", async (req, res) => {
-  const { requestedBy } = req.body;
-  const resp = await Post.find({ requestedBy });
-  res.status(200).json({ poster: resp });
+// app.get("/getrequester", async (req, res) => {
+//   const { requestedBy } = req.body;
+//   const resp = await Post.find({ requestedBy });
+//   res.status(200).json({ poster: resp });
+// });
+app.post("/getrequester", async (req, res) => {
+  const { id } = req.body;
+  const reque = (await Post.findById(id)).requestedBy;
+  console.log(reque);
+  // const user = await User.findById(reque);
+  // console.log(user);
+  // res.status(200).json({ requester: user.name, phone: user.phone });
 });

@@ -64,6 +64,7 @@ const Marketplace = () => {
                 })
                 .map((item, index) => (
                   <ItemCard
+                    typeselected={typeselected}
                     type={item.type}
                     key={index}
                     _id={item._id}

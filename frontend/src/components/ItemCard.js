@@ -3,19 +3,6 @@ import { Card, CardContent, Typography } from "@material-ui/core";
 import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./ItemCard.css";
 import axios from "axios";
-const section1 = ({ requester, requester_phone }) => {
-  return (
-    <div>
-      <p>Request from {requester}</p>
-      <p>Contact: {requester_phone}</p>
-      <button>Accept</button>
-      <button>Decline</button>
-    </div>
-  );
-};
-const section2 = ({ type }) => {
-  return <button>{type}</button>;
-};
 const ItemCard = ({
   value,
   imgUrl,
@@ -26,58 +13,44 @@ const ItemCard = ({
   endDate,
   type,
   postedBy,
+  typeselected,
 }) => {
-  // const BACKEND_URL = "http://localhost:8000/getrequester";
-  // const [reqby, setReqBy] = useState("");
-  // const [text1, setText1] = useState("");
-  // const [text2, setText2] = useState("");
-  // useEffect(() => {
-  //   if (JSON.parse(localStorage["college_trader_data"])._id == postedBy) {
-  //     if (type === "Rent" || type === "Buy") {
-  //       setText1("Delete");
-  //     }
-  //     if (type === "Approved") setText1("Approved");
-  //     if (type === "Requested") setText1("Approve");
-  //   } else {
-  //     setText1(type);
-  //   }
-  // }, []);
-  // console.log(reqby);
-  // useEffect(() => {
-  //   const fun = async () => {
-  //     setReqBy(await axios.get(BACKEND_URL, { requestedBy: reqby }));
-  //     console.log(
-  //       await axios.get(BACKEND_URL, {
-  //         requestedBy: "6430d9440038e89fbc520e01",
-  //       })
-  //     );
-  //   };
-  // fun();
-  //   console.log({
-  //     lol: JSON.parse(localStorage["college_trader_data"])._id,
-  //     postedBy,
-  //   });
-  // }, []);
-  // const handleClick = (e) => {
-  //   // if(e.target.value === '')
-  // };
-  // const handleApprove = (e) => {};
   const BACKEND_URL = "http://localhost:8000/getrequester";
   const [request, setRequest] = useState("");
   useEffect(() => {
     const fun = async () => {
-      console.log(await axios.post(BACKEND_URL, { id: _id }));
-      setRequest((await axios.post(BACKEND_URL, { id: _id })).data.requester);
+      console.log((await axios.post(BACKEND_URL, { id: _id })).data.user.name);
+      setRequest((await axios.post(BACKEND_URL, { id: _id })).data.user.name);
     };
     fun();
-  }, []);
+  }, [typeselected]);
   const [phone, setPhone] = useState("");
   useEffect(() => {
     const fun = async () => {
-      setPhone((await axios.post(BACKEND_URL, { id: _id })).data.phone);
+      setPhone((await axios.post(BACKEND_URL, { id: _id })).data.user.phone);
     };
     fun();
-  }, []);
+  }, [typeselected]);
+  useEffect(() => {
+    console.log(request);
+  }, [request]);
+  const ACCEPT_BACKEND_URL = "http://localhost:8000/handleaccept";
+  const handleAccept = async (e) => {
+    const resp = await axios.post(ACCEPT_BACKEND_URL, { postid: _id });
+    alert(resp.data.message);
+  };
+  const DECLINE_BACKEND_URL = "http://localhost:8000/handledecline";
+  const handleDecline = async (e) => {
+    const resp = await axios.post(DECLINE_BACKEND_URL, { postid: _id });
+    alert(resp.data.message);
+  };
+  const DBACKEND_URL = "http://localhost:8000/handledel";
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    console.log("hiii");
+    const resp = await axios.post(DBACKEND_URL, { postid: _id });
+    console.log(resp);
+  };
   return (
     <div className="col-12 col-md-6 col-lg-4">
       <div className="card ">
@@ -91,19 +64,40 @@ const ItemCard = ({
             Date Range:{startDate} - {endDate}
           </p>
         </div>
-        {JSON.parse(localStorage["college_trader_data"])._id == postedBy ? (
+        {JSON.parse(localStorage["college_trader_data"])._id === postedBy ? (
           request ? (
             <div>
               <p>
                 Request from {request} Contact no: {phone}
               </p>
-              <button>Accept</button>
-              <button>Decline</button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleAccept(e);
+                }}
+              >
+                Accept
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleDecline(e);
+                }}
+              >
+                Decline
+              </button>
             </div>
           ) : (
             <div>
               <p>No requests Yet</p>
-              <button>Delete</button>
+              <button
+                onClick={(e) => {
+                  // e.preventDefault();
+                  handleDelete(e);
+                }}
+              >
+                Delete
+              </button>
             </div>
           )
         ) : (
@@ -117,46 +111,9 @@ const ItemCard = ({
             )}
           </div>
         )}
-        {/* <button
-          onClick={(e) => {
-            if (e.target.value === "Approve") {
-            }
-          }}
-        >
-          {text1}
-        </button>
-        {JSON.parse(localStorage["college_trader_data"])._id == postedBy &&
-          type === "Requested" && <button onClick={() => {}}>Decline</button>}
-        {/* {JSON.parse(localStorage["college_trader_data"])._id == postedBy
-            ? type === "Requested"
-              ? "Decline"
-              : "Delete"
-            : ""} */}
-        {/* {type === "Requested" && (
-          <div>
-            <p>Requested by: {reqby.name} </p>
-            <p>Requested by: {reqby.phone} </p>
-          </div>
-        )}  */}
       </div>
     </div>
   );
 };
-
-// const ItemCard = ({ item, price, startDate, endDate }) => {
-//   return (
-//     <Card className="my_card">
-//       <CardContent>
-//         <Typography variant="h5" component="h2">
-//           {item}
-//         </Typography>
-//         <Typography color="textSecondary">Price: {price}</Typography>
-//         <Typography color="textSecondary">
-//           Date Range: {startDate} - {endDate}
-//         </Typography>
-//       </CardContent>
-//     </Card>
-//   );
-// };
 
 export default ItemCard;

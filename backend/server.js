@@ -90,16 +90,11 @@ app.post("/uploadtoDB", async (req, res) => {
     });
     const user = await User.findById(postedBy);
     const resp = await newpost.save();
-    console.log({ user, resp });
     const posts = user?.posts;
-    // console.log(resp);
-
     const new_posts = [...posts, { id: resp._id }];
     await User.findByIdAndUpdate(postedBy, { posts: new_posts });
     return res.status(200).json({ message: "Post Saved" });
   } catch (error) {
-    console.log("hi");
-
     return res.status(500).json({ message: error.message });
   }
 });
@@ -116,16 +111,56 @@ app.post("/userPosts", async (req, res) => {
   const userposts = await Post.find({ postedBy: id });
   return res.status(200).json({ posts: userposts });
 });
-// app.get("/getrequester", async (req, res) => {
-//   const { requestedBy } = req.body;
-//   const resp = await Post.find({ requestedBy });
-//   res.status(200).json({ poster: resp });
-// });
 app.post("/getrequester", async (req, res) => {
-  const { id } = req.body;
-  const reque = (await Post.findById(id)).requestedBy;
-  console.log(reque);
-  // const user = await User.findById(reque);
-  // console.log(user);
-  // res.status(200).json({ requester: user.name, phone: user.phone });
+  try {
+    const { id } = req.body;
+    // console.log(id);
+    let user = "";
+    if ((await Post.findById(id)).requestedBy !== "") {
+      user = await User.findById((await Post.findById(id)).requestedBy);
+    }
+    // console.log({ id, user });
+    // if (id == "6430da310038e89fbc520e24") {
+    //   console.log({ user });
+    // }
+    res.status(200).json({ user: user });
+  } catch (error) {
+    console.log(error.message);
+  }
 });
+app.post("/handleaccept", async (req, res) => {
+  try {
+    const { postid } = req.body;
+    console.log(postid);
+    // await Post.findByIdAndUpdate(postid, { type: "Approved" });
+    // res.status(200).json({ message: "Successfully Approved" });
+  } catch (error) {
+    // res.status(500).json({ error: error.message });
+  }
+});
+app.post("/handledecline", async (req, res) => {
+  try {
+    const { postid } = req.body;
+    await Post.findByIdAndUpdate(postid, { type: "Declined", requestedBy: "" });
+    res.status(200).json({ message: "Successfully Declined" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.post("/handledel", async (req, res) => {
+  console.log("ji");
+  res.json({ msg: "ko" });
+});
+// app.post("/handledele", async (req, res) => {
+//   console.log("hiiiiii");
+//   // try {
+//   //   console.log("hi");
+//   //   const { id } = req.body;
+//   //   // await Post.findByIdAndDelete(id);
+//   //   res.status(200).json({ message: "Deleted" });
+//   // } catch (err) {
+//   //   // return res.status(500).json({ message: err.message });
+//   //   console.log(err.message);
+//   // }
+//   res.send("ok");
+// });

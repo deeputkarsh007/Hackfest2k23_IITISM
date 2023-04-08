@@ -1,67 +1,6 @@
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const User = require("./models/User");
-const dotenv = require("dotenv");
-const Post = require("./models/Post");
-dotenv.config();
-const DATABASE_URL = process.env.DB_URL;
-const app = express();
-app.use(express.json());
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
-const PORT = process.env.PORT || 8000;
-mongoose
-  .connect(DATABASE_URL, {
-    useNewUrlParser: true,
-  })
-  .then(() => console.log("database connected successfully"))
-  .catch((err) => console.log("error connecting to mongodb" + err));
-app.listen(PORT, () => {
-  console.log(`server is listening on port ${PORT}...`);
-});
-app.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const foundUser = await User.findOne({ email });
-    if (!foundUser) {
-      return res
-        .status(400)
-        .json({ message: "Email address is not connected to an account" });
-    } else {
-      if (foundUser.password !== password) {
-        return res.status(400).json({ message: "Invalid credentials" });
-      } else {
-        return res
-          .status(200)
-          .json({ message: "login successful", user: foundUser });
-      }
-    }
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-});
-app.post("/register", async (req, res) => {
-  try {
-    const { name, email, password, upiId, phone } = req.body;
-    const newuser = new User({
-      name,
-      email,
-      password,
-      upiId,
-      phone,
-      posts: [],
-      picturePath: "",
-    });
-    await newuser.save();
-    return res.status(200).json({ message: "Registration sucessful" });
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-});
-
-app.post("/uploadtoDB", async (req, res) => {
+const Post = require("../models/Post");
+const User = require("../models/User");
+exports.uploadToDb = async (req, res) => {
   try {
     const {
       amount,
@@ -97,24 +36,24 @@ app.post("/uploadtoDB", async (req, res) => {
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
-});
-app.get("/getAllPosts", async (req, res) => {
+};
+exports.getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find();
     res.status(200).json({ posts: posts });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
-});
-app.post("/userPosts", async (req, res) => {
+};
+exports.userPosts = async (req, res) => {
   const { id } = req.body;
   // console.log("hi");
   // console.log(req.body);
   // console.log({ nyid: id });
   const userposts = await Post.find({ postedBy: id });
   return res.status(200).json({ posts: userposts });
-});
-app.post("/getrequester", async (req, res) => {
+};
+exports.getRequesters = async (req, res) => {
   try {
     const { id } = req.body;
     let user = "";
@@ -125,8 +64,8 @@ app.post("/getrequester", async (req, res) => {
   } catch (error) {
     console.log(error.message);
   }
-});
-app.post("/handleaccept", async (req, res) => {
+};
+exports.handleAccept = async (req, res) => {
   try {
     const { postid } = req.body;
     console.log(postid);
@@ -141,8 +80,8 @@ app.post("/handleaccept", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});
-app.post("/handledecline", async (req, res) => {
+};
+exports.handleDecline = async (req, res) => {
   try {
     const { postid } = req.body;
     const fpost = await Post.findById(postid);
@@ -159,8 +98,9 @@ app.post("/handledecline", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});
-app.post("/handledel", async (req, res) => {
+};
+
+exports.handledel = async (req, res) => {
   try {
     const { postid } = req.body;
     const resp = await Post.findByIdAndDelete(postid);
@@ -168,8 +108,8 @@ app.post("/handledel", async (req, res) => {
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
-});
-app.post("/handlerent", async (req, res) => {
+};
+exports.handlerent = async (req, res) => {
   try {
     const { postid, requestedBy } = req.body;
     await Post.findByIdAndUpdate(postid, {
@@ -180,8 +120,8 @@ app.post("/handlerent", async (req, res) => {
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
-});
-app.post("/handlebuy", async (req, res) => {
+};
+exports.handlebuy = async (req, res) => {
   try {
     const { postid, requestedBy } = req.body;
     await Post.findByIdAndUpdate(postid, {
@@ -192,10 +132,10 @@ app.post("/handlebuy", async (req, res) => {
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
-});
-app.post("/getreqby", async (req, res) => {
+};
+exports.getreqby = async (req, res) => {
   const { id } = req.body;
   // console.log(typeof id);
   const resp = await Post.find({ requestedBy: id });
   res.status(200).json({ resp: resp });
-});
+};

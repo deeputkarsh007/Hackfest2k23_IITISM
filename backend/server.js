@@ -86,16 +86,20 @@ app.post("/uploadtoDB", async (req, res) => {
       startingTime,
       title,
       type,
+      requestedBy: "",
     });
     const user = await User.findById(postedBy);
-    const posts = user.posts;
     const resp = await newpost.save();
+    console.log({ user, resp });
+    const posts = user?.posts;
     // console.log(resp);
 
     const new_posts = [...posts, { id: resp._id }];
     await User.findByIdAndUpdate(postedBy, { posts: new_posts });
     return res.status(200).json({ message: "Post Saved" });
   } catch (error) {
+    console.log("hi");
+
     return res.status(500).json({ message: error.message });
   }
 });
@@ -113,7 +117,7 @@ app.post("/userPosts", async (req, res) => {
   const userposts = await Post.find({ postedBy: id });
   return res.status(200).json({ posts: userposts });
 });
-app.get("/getposter", async (req, res) => {
+app.get("/getrequester", async (req, res) => {
   const { requestedBy } = req.body;
   const resp = await Post.find({ requestedBy });
   res.status(200).json({ poster: resp });

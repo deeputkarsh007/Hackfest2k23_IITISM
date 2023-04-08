@@ -43,7 +43,7 @@ const PostSchema = new mongoose.Schema({
   },
   requestedBy: {
     type: String,
-    required: true,
+    // required: true,
   },
 });
 

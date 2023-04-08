@@ -66,12 +66,14 @@ const Marketplace = () => {
                   <ItemCard
                     type={item.type}
                     key={index}
+                    _id={item._id}
                     imgUrl={item.img_url}
                     item={item.title}
                     price={item.amount}
                     startDate={item.startingDate}
                     endDate={item.endingDate}
                     val={item.title}
+                    postedBy={item.postedBy}
                   />
                 ))}
           </div>

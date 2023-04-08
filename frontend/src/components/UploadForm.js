@@ -69,7 +69,6 @@ const Uploadform = () => {
     };
     console.log(newItemDetail);
     const res = await axios.post(BACKEND_URL, newItemDetail);
-
     function refreshPage() {
       window.location.reload(false);
     }
@@ -173,9 +172,10 @@ const Uploadform = () => {
       <div className="new-form__actions">
         <button
           type="submit"
-          onClick={() => {
+          onClick={(e) => {
             console.log(uploaded);
             setUploaded(true);
+            submitHandler(e);
           }}
         >
           Add the Product

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const { ObjectId } = mongoose.Schema;
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -31,50 +31,21 @@ const UserSchema = new mongoose.Schema({
   posts: {
     type: [
       {
-        amount: {
-          type: Number,
-          required: true,
-        },
-        description: {
-          type: String,
-          required: true,
-        },
-        endingDate: {
-          type: Date,
-          // required: true,
-        },
-        endingTime: {
-          type: String,
-          // required: true,
-        },
-        img_url: {
-          type: String,
-          required: true,
-        },
-        postedBy: {
-          type: String,
-          required: true,
-        },
-        startingDate: {
-          type: Date,
-          // required: true,
-        },
-        startingTime: {
-          type: String,
-          // required: true,
-        },
-        title: {
-          type: String,
-          required: true,
-        },
-        type: {
-          type: String,
-          required: true,
-        },
+        id: ObjectId,
       },
     ],
     default: [],
   },
+  sentRequests: [
+    {
+      id: ObjectId,
+    },
+  ],
+  incomingRequests: [
+    {
+      id: ObjectId,
+    },
+  ],
 });
 
 module.exports = mongoose.model("User", UserSchema);

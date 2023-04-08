@@ -3,11 +3,11 @@ import axios from "axios";
 const cloudname = "dmhsbpc29";
 const preset = "hackathon_preset";
 
-export default function ImageUploader({ defaultImage, setImgUrl }) {
+export default function ImageUploader({ defaultImage, setImgUrl, uploaded }) {
   const fileSelect = useRef(null);
   const [image, setImage] = useState(defaultImage);
   const [progress, setProgress] = useState(0);
-
+  // console.log(uploaded, "yehhh")
   async function handleImageUpload() {
     if (fileSelect) {
       fileSelect.current.click();
@@ -20,7 +20,6 @@ export default function ImageUploader({ defaultImage, setImgUrl }) {
       uploadFile(files[i]);
     }
   }
-
   async function uploadFile(file) {
     const url = `https://api.cloudinary.com/v1_1/${cloudname}/upload`;
     const xhr = new XMLHttpRequest();
@@ -39,7 +38,7 @@ export default function ImageUploader({ defaultImage, setImgUrl }) {
         const response = JSON.parse(xhr.responseText);
 
         setImage(response.secure_url);
-        console.log({ resp: response.secure_url });
+        // console.log({ resp: response.secure_url });
         setImgUrl(response.secure_url);
       }
     };
@@ -51,37 +50,37 @@ export default function ImageUploader({ defaultImage, setImgUrl }) {
     // console.log({resp});
     // const ress = await axios.post()
   }
-
+  // console.log(image)
   return (
     <>
-      {image ? (
+      <div className="" style={{ height: 400, width: 600 }}>
+        <form className="">
+          {progress === 0 || progress === 100 ? (
+            <div className="">
+              <button className="" onClick={handleImageUpload} type="button">
+                Browse
+              </button>
+            </div>
+          ) : (
+            <span className="">{progress}%</span>
+          )}
+
+          <input
+            ref={fileSelect}
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={(e) => handleFiles(e.target.files)}
+          />
+        </form>
+      </div>
+      {/* {console.log(uploaded) } */}
+      {image && !uploaded && (
         <img
           className=""
           src={image.replace("upload/", "upload/w_600/")}
-          style={{ height: 400, width: 600 }}
+          style={{ height: "400", width: "600" }}
         />
-      ) : (
-        <div className="" style={{ height: 400, width: 600 }}>
-          <form className="">
-            {progress === 0 ? (
-              <div className="">
-                <button className="" onClick={handleImageUpload} type="button">
-                  Browse
-                </button>
-              </div>
-            ) : (
-              <span className="">{progress}%</span>
-            )}
-
-            <input
-              ref={fileSelect}
-              type="file"
-              accept="image/*"
-              style={{ display: "none" }}
-              onChange={(e) => handleFiles(e.target.files)}
-            />
-          </form>
-        </div>
       )}
     </>
   );

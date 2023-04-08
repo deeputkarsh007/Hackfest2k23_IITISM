@@ -78,7 +78,7 @@ const Navbar = () => {
                     href="#"
                     style={ItemCss}
                     onClick={() => {
-                      navigate("/");
+                      navigate("/uploadforrent");
                     }}
                   >
                     Sell an Item
@@ -102,7 +102,7 @@ const Navbar = () => {
                     href="#"
                     style={ItemCss}
                     onClick={() => {
-                      navigate("/");
+                      navigate("/getrequests");
                     }}
                   >
                     Get Requests
@@ -114,7 +114,8 @@ const Navbar = () => {
                     href="#"
                     style={ItemCss}
                     onClick={() => {
-                      navigate("/");
+                      console.log("hi");
+                      navigate("/sellrequests");
                     }}
                   >
                     Sell Requests

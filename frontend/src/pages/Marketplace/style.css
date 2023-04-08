@@ -1,11 +1,8 @@
-#MarketCardDeck{
-  height: 410px;
-  overflow-x: scroll;
-  overflow-y: hidden;
+#MarketCardDeck {
+  height: 1000;
+  /* overflow-x: scroll; */
+  /* overflow-y: hidden; */
   width: 85%;
- 
+
   margin: auto;
- 
-
-
 }

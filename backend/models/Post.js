@@ -41,6 +41,10 @@ const PostSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  requestedBy: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Post", PostSchema);

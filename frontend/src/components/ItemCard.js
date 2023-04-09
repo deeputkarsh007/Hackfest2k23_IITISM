@@ -67,18 +67,19 @@ const ItemCard = ({
           <p className="card-text">
             Price:{price}
             <br />
-            Date Range:{startDate} - {endDate}
+            Date Range:{startDate?.substr(0,10)} - {endDate?.substr(0,10)}
           </p>
         </div>
+        {/* <div className="after_card_text"> */}
         {JSON.parse(localStorage["college_trader_data"])._id === postedBy ? (
           request ? (
             type === "Requested" ? (
               <div>
-                <p>
+                <p className="non_button">
                   Request from {request} Contact no: {phone}
                 </p>
                 <div>
-                  <button
+                  <button className="btn btn-success card_button"
                     onClick={(e) => {
                       e.preventDefault();
                       handleAccept(e);
@@ -86,7 +87,7 @@ const ItemCard = ({
                   >
                     Accept
                   </button>
-                  <button
+                  <button className="btn btn-secondary card_button"
                     onClick={(e) => {
                       e.preventDefault();
                       handleDecline(e);
@@ -101,8 +102,8 @@ const ItemCard = ({
             )
           ) : (
             <div>
-              <p>No requests Yet</p>
-              <button
+              <p className="non_button">No requests Yet</p>
+              <button className="btn btn-danger card_button"
                 onClick={(e) => {
                   handleDelete(e);
                 }}
@@ -114,9 +115,9 @@ const ItemCard = ({
         ) : (
           <div>
             {request ? (
-              <p>Already {type}</p>
+              <p className="non_button">Already {type}</p>
             ) : type === "Rent" ? (
-              <button
+              <button className="btn btn-primary card_button"
                 onClick={(e) => {
                   handleRent(e);
                 }}
@@ -124,7 +125,7 @@ const ItemCard = ({
                 Rent
               </button>
             ) : (
-              <button
+              <button className="btn btn-primary card_button"
                 onClick={(e) => {
                   handleRent(e);
                 }}
@@ -134,6 +135,7 @@ const ItemCard = ({
             )}
           </div>
         )}
+        
       </div>
     </div>
   );

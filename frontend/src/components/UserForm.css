@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.new-form__info h2{
+    /* color: aqua; */
+    font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: block;
+  font-size: 22px;
+  font-family: 'Roboto', sans-serif;
+}
+

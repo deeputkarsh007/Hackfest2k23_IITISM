@@ -35,15 +35,21 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(2, 0),
     width: "100%",
+    backgroundColor: "#00ABB3",
+    "&:hover": {
+      backgroundColor: "#00ABB3",
+      // textDecoration: "underline",
+      // color: "#00ABB3",
+    },
   },
   link: {
     margin: theme.spacing(2, 0),
-    color: "#4caf50",
+    color: "#00ABB3",
     fontWeight: "bold",
     textDecoration: "none",
     "&:hover": {
       textDecoration: "underline",
-      color: "green",
+      color: "#00ABB3",
     },
   },
 }));
@@ -66,7 +72,16 @@ function Login() {
       phone: phoneNumber,
     });
     if (res.status == "200") {
-      navigate("/login");
+      toast.success("Successfully Signed Up !", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+    } else {
+      toast.failure("Something Broke !", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
     console.log(
       `Name: ${name}, Email: ${email}, Password: ${password}, UPI ID: ${upiId}, Phone Number: ${phoneNumber}`
@@ -91,7 +106,7 @@ function Login() {
               className={classes.input}
               type="text"
               value={name}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
               required
             />
             <TextField
@@ -143,9 +158,6 @@ function Login() {
                 var phoneno =
                   /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
                 if (phoneNumber.match(phoneno)) {
-                  toast.success("Successfully Signed Up !", {
-                    position: toast.POSITION.TOP_CENTER,
-                  });
                   return true;
                 } else {
                   toast.error("Error Notification ! Invalid Phone number", {

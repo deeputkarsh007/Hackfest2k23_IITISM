@@ -62,16 +62,16 @@ exports.getRequesters = async (req, res) => {
     }
     res.status(200).json({ user: user });
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
   }
 };
 exports.handleAccept = async (req, res) => {
   try {
     const { postid } = req.body;
-    console.log(postid);
+    // console.log(postid);
     await Post.findByIdAndUpdate(postid, { type: "Approved" });
     const reqby = (await Post.findById(postid)).requestedBy;
-    console.log(reqby);
+    // console.log(reqby);
     const accarray = (await User.findById(reqby)).approved;
     await User.findByIdAndUpdate(reqby, {
       approved: [...accarray, postid],
@@ -141,16 +141,16 @@ exports.getreqby = async (req, res) => {
 };
 exports.updateuserinfo = async (req, res) => {
   try {
-    console.log("ho");
+    // console.log("ho");
     const { email, name, phone, upiId, id } = req.body;
-    const upduser = await User.findByIdAndUpdate(id, {
+    await User.findByIdAndUpdate(id, {
       email,
       name,
       phone,
       upiId,
     });
-    console.log(upduser);
-
+    // console.log(upduser);
+    const upduser = await User.findById(id);
     return res
       .status(200)
       .json({ message: "Successfully updated", user: upduser });

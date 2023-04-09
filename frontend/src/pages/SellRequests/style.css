@@ -1,0 +1,17 @@
+#MarketCardDeck {
+    /* height: 1000; */
+    /* overflow-x: scroll; */
+    /* overflow-y: hidden; */
+    width: 85%;
+  
+    margin: auto;
+  }
+  .MarketSearch{
+  filter: opacity(0.1);
+  filter: brightness(0.5);
+  }
+  .MarketSearch:focus{
+    filter: opacity(0.1);
+  filter: brightness(1.0);
+  }
+  

@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import axios from "axios";
+import './ImageUpload.css'
 
 const cloudname = "dmhsbpc29";
 const preset = "hackathon_preset";
@@ -66,16 +67,16 @@ export default function ImageUploader({ defaultImage, setImgUrl, uploaded }) {
   // console.log(image)
 
   const ButtonStyle = {
+    margin:'2px',
     font: "bolder",
     cursor: "pointer",
     padding: "0.5rem 1.5rem",
-    border: "1px solid rgb(49, 208, 44)",
-    backgroundColor: "rgb(65, 209, 60)",
+    border: "1px solid #00ABB3",
+    backgroundColor: "#00ABB3",
     color: "white",
     borderRadius: "12px",
     marginRight: "1rem",
-    boxShadow:
-      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+    
   };
 
   return (
@@ -86,13 +87,15 @@ export default function ImageUploader({ defaultImage, setImgUrl, uploaded }) {
             {progress === 0 || progress === 100 ? (
               <div className="">
                 <button
-                  className=""
+                  className="BrowseButton"
                   onClick={handleImageUpload}
                   type="button"
                   style={ButtonStyle}
+                  
                 >
                   Browse
                 </button>
+               
               </div>
             ) : (
               <span className="">{progress}%</span>
@@ -112,7 +115,7 @@ export default function ImageUploader({ defaultImage, setImgUrl, uploaded }) {
           <img
             className=""
             src={image.replace("upload/", "upload/w_600/")}
-            style={{ height: "400", width: "600" }}
+            style={{ height: "400", width: "600", padding:'10px' ,margin:'auto',maxWidth:'90%'}}
           />
         )}
       </div>

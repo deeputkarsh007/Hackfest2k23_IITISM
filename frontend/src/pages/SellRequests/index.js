@@ -4,7 +4,7 @@ import ItemCard from "../../components/ItemCard";
 import { useNavigate } from "react-router";
 import Navbar from "../../components/Navbar";
 import { Backdrop } from "@material-ui/core";
-
+import './style.css';
 const SellRequests = () => {
   const navigate = useNavigate();
   const BACKEND_URL = "http://localhost:8000/userPosts";
@@ -53,6 +53,8 @@ const SellRequests = () => {
   return (
     <div>
       <Navbar />
+      <div className="container-fluid py-2" id="MarketCardDeck">
+          <div className="row g-3">
       {posts?.data?.posts.map((item, i) => (
         <ItemCard
           key={i}
@@ -67,6 +69,8 @@ const SellRequests = () => {
           _id={item._id}
         />
       ))}
+      </div>
+      </div>
     </div>
   );
 };

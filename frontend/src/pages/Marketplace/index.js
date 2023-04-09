@@ -37,14 +37,15 @@ const Marketplace = () => {
   return (
     <>
       <Navbar />
-      <input
+      <div >
+      <input style={{width:'75%', margin:'12px',borderRadius:'30px',padding:'10px 20px'} } className="MarketSearch"
         value={searchTerm}
         onChange={(e) => {
           setSearchTerm(e.target.value);
         }}
         placeholder="Search"
       />
-      <select
+      <select style={{width:'20%',height:'40px' ,borderRadius:'15px',padding:'0px 20px'}}
         value={typeselected}
         onChange={(e) => {
           setTypeSelected(e.target.value);
@@ -54,12 +55,13 @@ const Marketplace = () => {
         <option>Rent</option>
         <option>Buy</option>
       </select>
+      </div>
       <div
-        style={{ backgroundColor: "rgb(237, 255, 233)", margin: "25px 0px" }}
+        style={{ margin: "25px 0px" }}
       >
         {" "}
         <div className="container-fluid py-2" id="MarketCardDeck">
-          <div className="row g-5 d-flex flex-row flex-nowrap">
+          <div className="row g-3">
             {posts &&
               posts
                 .filter((item) => {

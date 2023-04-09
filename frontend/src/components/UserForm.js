@@ -3,20 +3,30 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// import url({'https://fonts.googleapis.com/css2?family=Roboto&display=swap'});
+import './UserForm.css'
+
+
 //css
-const h2Css = {
-  fontSize: "20px",
-  fontFamily: "Times New Roman, Times, serif",
-  margin: "40px 28px 15px",
-  color: "#39513b",
-  fontWeight: "bolder",
-};
+// const {} = {
+//   // fontSize: "20px",
+//   // fontFamily: "Times New Roman, Times, serif",
+//   // margin: "40px 28px 15px",
+//   // color: "black",
+//   // fontWeight: "bolder",
+//   // fontWeight: '700',
+//   // marginBottom: '0.5rem',
+//   // display: 'block',
+//   // fontSize: '22px',
+//   // fontFamily: 'Roboto', 
+// };
 
 const inputCss = {
   padding: "9px 15px",
   border: "solid gray 1.85px",
-  borderRadius: "10px",
-  margin: "0% 5%",
+  borderRadius: "8px",
+  margin: "0% 2% 30px",
+  background:'white'
 };
 const ButtonCss = {
   color: "white",
@@ -107,7 +117,7 @@ const UserForm = () => {
         </button>
       </div>
       <div className="new-form__info" style={{ display: "block" }}>
-        <h2 style={h2Css}>Personal Information</h2>
+        <h2 style={{}}>Personal Information</h2>
         <div className="new-form__control">
           <input
             style={inputCss}
@@ -119,7 +129,7 @@ const UserForm = () => {
             }}
           />
         </div>
-        <h2 style={h2Css}>Email Id</h2>
+        <h2 style={{}}>Email Id</h2>
         <div className="new-form__control">
           <input
             style={inputCss}
@@ -131,7 +141,7 @@ const UserForm = () => {
             }}
           />
         </div>
-        <h2 style={h2Css}>Phone Number</h2>
+        <h2 style={{}}>Phone Number</h2>
         <div className="new-form__control">
           <input
             style={inputCss}
@@ -143,7 +153,7 @@ const UserForm = () => {
             }}
           />
         </div>
-        <h2 style={h2Css}>Upi Id</h2>
+        <h2 style={{}}>Upi Id</h2>
         <div className="new-form__control">
           <input
             style={inputCss}

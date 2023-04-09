@@ -132,6 +132,7 @@ const Uploadform = () => {
           <div className="new-form__control">
             <label>Title</label>
             <input
+              // style={{opacity:'1'}}
               type="text"
               placeholder="Name of the item"
               value={enteredTitle}
@@ -156,12 +157,12 @@ const Uploadform = () => {
               onChange={amountChangeHandler}
             />
           </div>
-          <div className="new-form__control">
+          <div className="new-form__control" >
             <label>Starting Date</label>
             <input
               disabled={disabled}
               type="date"
-              min="2019-01-01"
+              min="2023-04-08"
               max="2025-12-31"
               value={enteredStartingDate}
               onChange={startingDateChangeHandler}
@@ -183,8 +184,8 @@ const Uploadform = () => {
             <input
               disabled={disabled}
               type="date"
-              min="2019-01-01"
-              max="2022-12-31"
+              min="2023-04-08"
+              max="2025-12-31"
               value={enteredEndingDate}
               onChange={endingDateChangeHandler}
             />

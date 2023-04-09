@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 const { ObjectId } = mongoose.Schema;
 const UserSchema = new mongoose.Schema({
   name: {
@@ -49,5 +50,16 @@ const UserSchema = new mongoose.Schema({
   declined: [String],
   approved: [String],
 });
+// UserSchema.pre("save", async function (next) {
+//   if (!this.ismodified) {
+//     next();
+//   }
 
+//   const salt = 10;
+//   this.password = await bcrypt.hash(this.password, salt);
+// });
+
+UserSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 module.exports = mongoose.model("User", UserSchema);

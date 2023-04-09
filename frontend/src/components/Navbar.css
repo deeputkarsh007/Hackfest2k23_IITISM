@@ -10,7 +10,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap");
 .nav-link:focus,
 .nav-link:hover {
-  color: rgb(193, 254, 179);
+  color: #EAEAEA;
+  text-shadow: #EAEAEA 0.5px 0.5px;
 }
 .navbar-nav .nav-link.active {
   color: rgb(255, 255, 255);
@@ -28,3 +29,51 @@
   font-weight: 700;
   font-size: 30px;
 }
+
+
+
+/* .nav a {
+  padding: .2em .4em;
+
+  position: relative;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+nav a::before,
+nav a::after {
+  content: '';
+  height: 14px;
+  width: 14px;
+  position: absolute;
+  transition: all 1s ease;
+  opacity: 0;
+}
+
+nav a::before {
+  content: '';
+  right: 0;
+  top: 0;
+  border-top: 1.5px solid #000;
+  border-right: 1.5px solid #000;
+  transform: translate(-100%, 50%);
+}
+
+nav a:after {
+  content: '';
+  left: 0;
+  bottom: 0;
+  border-bottom: 1.5px solid #000;
+  border-left: 1.5px solid #000;
+  transform: translate(100%, -50%)
+}
+
+nav a:hover:before,
+nav  a:hover:after{
+  transform: translate(0,0);
+  opacity: 1;
+}
+
+nav a:hover {
+  color: #EFEFEF;
+} */

@@ -13,6 +13,7 @@
   /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #2b672e; */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 5%;
+  background-color: #EAEAEA;
 }
 
 .MuiInputLabel-outlined.MuiInputLabel-shrink {
@@ -20,5 +21,5 @@
 }
 
 .MuiFormLabel-root.Mui-focused {
-  color: green !important;
+  color: #00ABB3 !important;
 }

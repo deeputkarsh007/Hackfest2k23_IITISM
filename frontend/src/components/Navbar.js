@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import { Helmet } from "react-helmet";
+// import '../index.css'
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -12,7 +13,8 @@ const Navbar = () => {
 
   const backGround = {
     padding: "5px 13px",
-    backgroundColor: "green",
+    backgroundColor: "#00ABB3",
+    opacity: "0.95",
   };
   const AppCss = {
     color: "white",
@@ -122,6 +124,20 @@ const Navbar = () => {
                     }}
                   >
                     Sell Requests
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
+                    className="nav-link"
+                    href="#"
+                    style={ItemCss}
+                    onClick={() => {
+                      localStorage.setItem("college_trader_data", "");
+                      // console.log("hi");
+                      navigate("/login");
+                    }}
+                  >
+                    Logout
                   </a>
                 </li>
               </ul>

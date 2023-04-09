@@ -25,19 +25,19 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(2, 0),
     width: "100%",
-    backgroundColor: "#4caf50",
+    backgroundColor: "#00ABB3",
     "&:hover": {
-      backgroundColor: "#388e3c",
+      backgroundColor: "#00ABB3",
     },
   },
   link: {
     margin: theme.spacing(2, 0),
-    color: "#4caf50",
+    color: "#00ABB3",
     fontWeight: "bold",
     textDecoration: "none",
     "&:hover": {
       textDecoration: "underline",
-      color:'green'
+      color: "#00ABB3",
     },
   },
 }));

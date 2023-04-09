@@ -1,14 +1,15 @@
 const User = require("../models/User");
-
+const bcrypt = require("bcrypt");
 /* REGISTER USER */
 
 exports.register = async (req, res) => {
   try {
     const { name, email, password, upiId, phone } = req.body;
+    const hashedpassword = await bcrypt.hash(password, 10);
     const newuser = new User({
       name,
       email,
-      password,
+      password: hashedpassword,
       upiId,
       phone,
       posts: [],
@@ -32,7 +33,7 @@ exports.login = async (req, res) => {
         .status(400)
         .json({ message: "Email address is not connected to an account" });
     } else {
-      if (foundUser.password !== password) {
+      if (!(await bcrypt.compare(password, foundUser.password))) {
         return res.status(400).json({ message: "Invalid credentials" });
       } else {
         return res
